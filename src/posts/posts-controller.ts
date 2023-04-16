@@ -25,7 +25,7 @@ const PostsController = (app) => {
     if (!recipe) {
       recipe = await recipeDao.createRecipe(req.body.recipe);
     }
-
+    
     // Create the post with the recipe id
     const post = req.body.post;
     console.log(recipe);

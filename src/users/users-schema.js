@@ -12,6 +12,7 @@ const usersSchema = new mongoose.Schema(
     default: "user",
     enum: ["admin", "user", "guest", "moderator"],
   },
+  avatar: { type: String, default: "https://loremflickr.com/640/480/food", required: true}
 },
 { collection: "users" }
 );

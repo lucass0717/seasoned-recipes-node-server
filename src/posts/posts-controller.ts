@@ -1,5 +1,6 @@
 import * as postsDao from "./posts-dao";
 import * as recipeDao from "../recipes/recipes-dao";
+import * as groupDao from "../groups/groups-dao";
 
 const PostsController = (app) => {
 
@@ -12,26 +13,32 @@ const PostsController = (app) => {
   // Create a post and create the associated recipe if it doesn't exist
   async function createPost(req, res) {
     const currentUser = req.session.currentUser;
-    
+    const post = req.body.post;
+    const recipe = req.body.recipe;
+    let newPost = post;
+    console.log("post", post);
+    console.log("recipe", recipe);
+
     // if no user is logged in, return 401
     if (!currentUser) {
       res.status(401).json({ message: "Unauthorized" });
       return;
     }
-    console.log("body", req.body);
-    console.log("post", req.body.post);
-    // If the recipe doesn't exist, create it
-    let recipe = await recipeDao.findRecipeByApiId(req.body.recipe.recipeApiId);
-    if (!recipe) {
-      recipe = await recipeDao.createRecipe(req.body.recipe);
+    // If the recipe doesn't exist, create it and add it to the post
+    let attachedRecipe = await recipeDao.findRecipeByApiId(recipe.recipeApiId);
+    if (!attachedRecipe) {
+      attachedRecipe = await recipeDao.createRecipe(recipe);
     }
-    
-    // Create the post with the recipe id
-    const post = req.body.post;
-    console.log(recipe);
-    post.recipeId = recipe._id;
-    await postsDao.createPost(post);
-    res.json(post);
+    console.log(attachedRecipe);
+    newPost = { ...newPost, recipeId: attachedRecipe._id};
+
+    // Add the group to the post
+    const groupId = await groupDao.getGroupByName(post.groupName);
+    console.log("groupId", groupId);
+    newPost = { ...newPost, groupId};
+
+    await postsDao.createPost(newPost);
+    res.json(newPost);
   }
 
   // Delete a post

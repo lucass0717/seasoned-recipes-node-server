@@ -1,15 +1,17 @@
 import express from "express";
 import session from "express-session";
-import AuthController from "./users/auth-controller.js";
 import cors from "cors";
 import mongoose from "mongoose";
+// CONTROLLER IMPORTS
+import AuthController from "./users/auth-controller";
 import PostsController from "./posts/posts-controller";
 import RecipesController from "./recipes/recipes-controller";
 import GroupsController from "./groups/groups-controller";
 mongoose.connect('mongodb://127.0.0.1:27017/seasoned-recipes-db');
+
+// EXPRESS CONNECT AND CONFIGURATION
 const app = express();
 
-// NETWORK COMMUNICATION WITH REACT APP CONFIGURATION
 app.use(
   cors({
     credentials: true,
@@ -17,7 +19,6 @@ app.use(
   })
 );
 
-// SESSION
 app.use(
   session({
     secret: "secret string",
@@ -34,6 +35,7 @@ PostsController(app);
 RecipesController(app);
 GroupsController(app);
 
+// DEFAULT ROUTE AND SERVER START
 app.get("/", (req, res) => {
   res.send("Seasoned Recipes API Server");
 });

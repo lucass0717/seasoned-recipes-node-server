@@ -3,11 +3,13 @@ import * as recipeDao from "../recipes/recipes-dao";
 
 const PostsController = (app) => {
 
+  // Get all posts with the recipe, group, and user populated
   async function getAllPosts(req, res) {
     const posts = await postsDao.getPosts();
     res.json(posts);
   }
 
+  // Create a post and create the associated recipe if it doesn't exist
   async function createPost(req, res) {
     const currentUser = req.session.currentUser;
     
@@ -32,6 +34,7 @@ const PostsController = (app) => {
     res.json(post);
   }
 
+  // Delete a post
   async function deletePost(req, res) {
     const postId = req.params.postId;
     await postsDao.deletePost(postId);

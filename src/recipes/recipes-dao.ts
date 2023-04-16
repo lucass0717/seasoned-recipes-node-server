@@ -8,6 +8,7 @@ type recipeType = {
   tags: string[];
 }
 
+// Creates a new recipe
 export const createRecipe = async (recipe: recipeType) => {
   return await recipesModel.create(recipe);
 }

@@ -1,4 +1,4 @@
-import * as usersDao from "./users-dao.js";
+import * as usersDao from "./users-dao";
 
 const AuthController = (app) => {
 

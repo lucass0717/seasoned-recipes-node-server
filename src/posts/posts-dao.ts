@@ -6,7 +6,7 @@ type postType = {
   likes: number;
 }
 
-// retrieves all posts in descending order by date
+// retrieves all posts in descending order by date with populated userId, groupId, and recipeId
 export const getPosts = async () => {
   return await postsModel
   .find()

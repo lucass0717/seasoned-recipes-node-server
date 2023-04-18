@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
 const recipesSchema = new mongoose.Schema(
 {
-  recipeApiId: { type: Number, unique: true, required: true },
-  title: { type: String, required: true },
-  description: { type: String},
-  image: { type: String, required: true },
+  // id from the API
+  id: { type: Number, unique: true, required: true },
+  name: { type: String, required: true },
+  thumbnail_url: { type: String, required: true },
   tags: { type: Array, required: true },
+  yields: { type: String, required: true},
+  total_time_minutes: { type: String, required: true}
 },
 { collection: "recipes" }
 );

@@ -6,6 +6,8 @@ const RecipesController = (app) => {
   const getRecipeById =  async (req, res) => {
     const recipeId = req.params.recipeId;
     const recipe = await recipesDao.findRecipeByExternalId(recipeId);
+    res.json(recipe);
+  };
 
   // Save an external recipe in our database
   const createRecipe = async (req, res) => {

@@ -25,7 +25,11 @@ const PostsController = (app) => {
       return;
     }
     // If the recipe doesn't exist, create it and add it to the post
+<<<<<<< HEAD
     let attachedRecipe = await recipeDao.findRecipeByExternalId(recipe.recipeApiId);
+=======
+    let attachedRecipe = await recipeDao.findRecipeByApiId(recipe.recipeApiId);
+>>>>>>> 454bf2b0e6064bb73dcd983b756b717bdbb656ab
     if (!attachedRecipe) {
       attachedRecipe = await recipeDao.createRecipe(recipe);
     }

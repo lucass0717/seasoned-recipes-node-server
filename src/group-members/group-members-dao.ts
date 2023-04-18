@@ -1,6 +1,6 @@
 import groupMembersModel from "./group-members-model";
 
-type groupMember = {
+export type groupMember = {
   groupId: string;
   userId: string;
 }

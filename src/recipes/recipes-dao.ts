@@ -1,7 +1,7 @@
 import recipesModel from "./recipes-model";
 
 type recipeType = {
-  recipeApiId: string;
+  recipeApiId: number;
   title: string;
   description: string;
   image: string;

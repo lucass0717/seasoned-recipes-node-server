@@ -10,6 +10,19 @@ const PostsController = (app) => {
     res.json(posts);
   }
 
+  // Get all posts from people you follow
+  async function getFollowedPosts(req, res) {
+    const currentUser = req.params.userId;
+    // if no user is logged in, return 401
+    console.log("currentUser", currentUser);
+    if (!currentUser) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+    const posts = await postsDao.getFollowedPosts(currentUser);
+    res.json(posts);
+  }
+
   // Create a post and create the associated recipe if it doesn't exist
   async function createPost(req, res) {
     const currentUser = req.session.currentUser;
@@ -49,6 +62,7 @@ const PostsController = (app) => {
   }
 
   app.get("/api/posts", getAllPosts);
+  app.get("/api/followed-posts/:userId", getFollowedPosts);
   app.post("/api/posts", createPost);
   app.delete("/api/posts/:postId", deletePost);
 };

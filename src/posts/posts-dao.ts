@@ -1,4 +1,5 @@
 import postsModel from "./posts-model";
+import * as followsDao from "../follows/follows-dao";
 
 type postType = {
   text: string;
@@ -14,6 +15,16 @@ export const getPosts = async () => {
   .populate("userId")
   .populate("groupId")
   .sort({date: -1});
+}
+
+export const getFollowedPosts = async (userId: string) => {
+  console.log("userId", userId);
+  const following = await followsDao.getFollowingById(userId);
+  const followingIds = following.map((follow: any) => follow.following);
+  console.log("followingIds", followingIds);
+  const followedPosts = await postsModel.find({userId: {$in: followingIds}});
+  console.log("followedPosts", followedPosts);
+  return followedPosts;  
 }
 
 export const createPost = async (post: postType) => 

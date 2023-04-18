@@ -7,6 +7,7 @@ import AuthController from "./users/auth-controller";
 import PostsController from "./posts/posts-controller";
 import RecipesController from "./recipes/recipes-controller";
 import GroupsController from "./groups/groups-controller";
+import FollowsController from "./follows/follows-controller";
 mongoose.connect('mongodb://127.0.0.1:27017/seasoned-recipes-db');
 
 // EXPRESS CONNECT AND CONFIGURATION
@@ -34,6 +35,7 @@ AuthController(app);
 PostsController(app);
 RecipesController(app);
 GroupsController(app);
+FollowsController(app);
 
 // DEFAULT ROUTE AND SERVER START
 app.get("/", (req, res) => {

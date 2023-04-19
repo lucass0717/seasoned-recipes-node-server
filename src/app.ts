@@ -12,7 +12,7 @@ import FollowsController from "./follows/follows-controller";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
  || 'mongodb://127.0.0.1:27017/seasoned-recipes-db'
 mongoose.connect(CONNECTION_STRING);
-
+console.log(CONNECTION_STRING);
 // EXPRESS CONNECT AND CONFIGURATION
 const app = express();
 

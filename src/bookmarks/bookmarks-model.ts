@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
-import followsSchema from "./follows-schema";
-const followsModel = mongoose.model("follows", followsSchema);
-export default followsModel;
+import bookmarksSchema from "./bookmarks-schema";
+
+const bookmarksModel = mongoose.model("bookmarks", bookmarksSchema);
+export default bookmarksModel;

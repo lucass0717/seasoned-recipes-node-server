@@ -9,7 +9,7 @@ const bookmarksSchema = new mongoose.Schema(
         },
         recipe: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "bookmarks",
+            ref: "recipes",
             required: true,
         },
     },

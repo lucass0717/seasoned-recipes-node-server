@@ -8,6 +8,8 @@ import PostsController from "./posts/posts-controller";
 import RecipesController from "./recipes/recipes-controller";
 import GroupsController from "./groups/groups-controller";
 import FollowsController from "./follows/follows-controller";
+import UpvotesController from "./upvotes/upvotes-controller";
+import BookmarksController from "./bookmarks/bookmarks-controller";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
  || 'mongodb://127.0.0.1:27017/seasoned-recipes-db'
@@ -39,6 +41,8 @@ PostsController(app);
 RecipesController(app);
 GroupsController(app);
 FollowsController(app);
+UpvotesController(app);
+BookmarksController(app);
 
 // DEFAULT ROUTE AND SERVER START
 app.get("/", (req, res) => {

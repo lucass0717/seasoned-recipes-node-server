@@ -8,7 +8,10 @@ import PostsController from "./posts/posts-controller";
 import RecipesController from "./recipes/recipes-controller";
 import GroupsController from "./groups/groups-controller";
 import FollowsController from "./follows/follows-controller";
-mongoose.connect('mongodb://127.0.0.1:27017/seasoned-recipes-db');
+
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
+ || 'mongodb://127.0.0.1:27017/seasoned-recipes-db
+mongoose.connect(CONNECTION_STRING);
 
 // EXPRESS CONNECT AND CONFIGURATION
 const app = express();

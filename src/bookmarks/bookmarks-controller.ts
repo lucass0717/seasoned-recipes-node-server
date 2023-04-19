@@ -9,14 +9,14 @@ function BookmarksController(app) {
 
     const getBookmarksByRecipeId = async (req, res) => {
         const recipeId = req.params.recipeId;
-        const followers = await bookmarksDao.getBookmarksByRecipeId(recipeId);
-        res.json(followers);
+        const bookmarkByRecipeId = await bookmarksDao.getBookmarksByRecipeId(recipeId);
+        res.json(bookmarkByRecipeId);
     };
 
     const getBookmarksByUserId = async (req, res) => {
         const userId = req.params.userId;
-        const following = await bookmarksDao.getBookmarksByUserId(userId);
-        res.json(following);
+        const bookmarkByUserId = await bookmarksDao.getBookmarksByUserId(userId);
+        res.json(bookmarkByUserId);
     };
 
     const unbookmark = async (req, res) => {

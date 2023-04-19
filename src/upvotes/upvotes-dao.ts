@@ -1,22 +1,22 @@
-import bookmarksModel from "./bookmarks-model";
+import upvotesModel from "../upvotes/upvotes-model";
 
-type bookmarks = {
+type upvotes = {
   user: string;
-  recipe: string;
+  post: string;
 }
 
-export const createBookmark = async (bookmark: bookmarks) => {
-  return await bookmarksModel.create(bookmark);
+export const createUpvote = async (upvote: upvotes) => {
+  return await upvotesModel.create(upvote);
 }
 
-export const getBookmarksByRecipeId = async (recipeId: string) => {
-  return await bookmarksModel.find({recipe: recipeId});
+export const getUpvotesByPostId = async (postId: string) => {
+  return await upvotesModel.find({post: postId});
 }
 
-export const getBookmarksByUserId = async (userId: string) => {
-  return await bookmarksModel.find({user: userId});
+export const getUpvotesByUserId = async (userId: string) => {
+  return await upvotesModel.find({user: userId});
 }
 
-export const unbookmark = async (bookmark: bookmarks) => {
-  return await bookmarksModel.deleteOne(bookmark);
+export const removeUpvote = async (upvote: upvotes) => {
+  return await upvotesModel.deleteOne(upvote);
 }

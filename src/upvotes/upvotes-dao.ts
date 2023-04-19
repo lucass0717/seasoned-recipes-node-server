@@ -1,6 +1,6 @@
 import upvotesModel from "../upvotes/upvotes-model";
 
-type upvotes = {
+export type upvotes = {
   user: string;
   post: string;
 }

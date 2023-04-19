@@ -1,8 +1,10 @@
 import * as bookmarksDao from "./bookmarks-dao";
 
+type bookmarks = bookmarksDao.bookmarks;
+
 function BookmarksController(app) {
     const createBookmark = async (req, res) => {
-        const bookmark = req.body;
+        const bookmark: bookmarks = req.body;
         const newBookmark = await bookmarksDao.createBookmark(bookmark);
         res.json(newBookmark);
     };
@@ -20,7 +22,7 @@ function BookmarksController(app) {
     };
 
     const unbookmark = async (req, res) => {
-        const bookmark = req.body;
+        const bookmark: bookmarks = req.body;
         const deletedBookmark = await bookmarksDao.unbookmark(bookmark);
         res.json(deletedBookmark);
     };

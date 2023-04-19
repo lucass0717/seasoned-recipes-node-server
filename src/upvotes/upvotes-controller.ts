@@ -1,8 +1,10 @@
 import * as upvotesDao from "./upvotes-dao";
 
+type upvotes = upvotesDao.upvotes;
+
 function UpvotesController(app) {
     const createUpvote = async (req, res) => {
-        const upvote = req.body;
+        const upvote: upvotes = req.body;
         const createdUpvote = await upvotesDao.createUpvote(upvote);
         res.json(createdUpvote);
     };
@@ -20,7 +22,7 @@ function UpvotesController(app) {
     };
 
     const removeUpvote = async (req, res) => {
-        const upvote = req.body;
+        const upvote: upvotes = req.body;
         const deletedUpvote = await upvotesDao.removeUpvote(upvote);
         res.json(deletedUpvote);
     };

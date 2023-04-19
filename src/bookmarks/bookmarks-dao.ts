@@ -1,6 +1,6 @@
 import bookmarksModel from "./bookmarks-model";
 
-type bookmarks = {
+export type bookmarks = {
   user: string;
   recipe: string;
 }

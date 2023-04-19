@@ -1,6 +1,7 @@
 import * as postsDao from "./posts-dao";
 import * as recipeDao from "../recipes/recipes-dao";
 import * as groupDao from "../groups/groups-dao";
+import {findRecipeByAPIId} from "../recipes/recipes-dao";
 
 const PostsController = (app) => {
 
@@ -38,7 +39,7 @@ const PostsController = (app) => {
       return;
     }
     // If the recipe doesn't exist, create it and add it to the post
-    let attachedRecipe = await recipeDao.findRecipeByExternalId(recipe.recipeApiId);
+    let attachedRecipe = await recipeDao.findRecipeByAPIId(recipe.recipeApiId);
     if (!attachedRecipe) {
       attachedRecipe = await recipeDao.createRecipe(recipe);
     }

@@ -19,5 +19,5 @@ export const findRecipeById = async (recipeId: string) =>
   await recipesModel.findById(recipeId);
 
 // Retrieves a recipe by its api id
-export const findRecipeByExternalId = async (id: number) =>
+export const findRecipeByAPIId = async (id: number) =>
   await recipesModel.findOne({ id });

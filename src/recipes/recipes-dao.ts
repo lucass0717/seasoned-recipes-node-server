@@ -1,11 +1,12 @@
 import recipesModel from "./recipes-model";
 
 type recipeType = {
-  recipeApiId: number;
-  title: string;
-  description: string;
-  image: string;
+  id: string;
+  name: string;
+  thumbnail_url: string;
   tags: string[];
+  yields: string;
+  total_time_minutes: string;
 }
 
 // Creates a new recipe
@@ -18,5 +19,5 @@ export const findRecipeById = async (recipeId: string) =>
   await recipesModel.findById(recipeId);
 
 // Retrieves a recipe by its api id
-export const findRecipeByExternalId = async (recipeApiId: number) => 
-  await recipesModel.findOne({ recipeApiId });
+export const findRecipeByAPIId = async (id: number) =>
+  await recipesModel.findOne({ id });

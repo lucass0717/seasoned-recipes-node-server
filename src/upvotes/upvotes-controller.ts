@@ -1,4 +1,5 @@
 import * as upvotesDao from "./upvotes-dao";
+import * as postsDao from "../posts/posts-dao";
 
 type upvotes = upvotesDao.upvotes;
 
@@ -6,6 +7,7 @@ function UpvotesController(app) {
     const createUpvote = async (req, res) => {
         const upvote: upvotes = req.body;
         const createdUpvote = await upvotesDao.createUpvote(upvote);
+        await postsDao.addLikeToPost(upvote.post);
         res.json(createdUpvote);
     };
 
@@ -24,6 +26,7 @@ function UpvotesController(app) {
     const removeUpvote = async (req, res) => {
         const upvote: upvotes = req.body;
         const deletedUpvote = await upvotesDao.removeUpvote(upvote);
+        await postsDao.removeLikeFromPost(upvote.post);
         res.json(deletedUpvote);
     };
 

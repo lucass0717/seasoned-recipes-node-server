@@ -1,4 +1,4 @@
-import * as upvotesDao from "../upvotes/upvotes-dao";
+import * as upvotesDao from "./upvotes-dao";
 
 function UpvotesController(app) {
     const createUpvote = async (req, res) => {
@@ -8,8 +8,8 @@ function UpvotesController(app) {
     };
 
     const getUpvotesByPostId = async (req, res) => {
-        const recipeId = req.params.recipeId;
-        const upvotedByPostId = await upvotesDao.getUpvotesByPostId(recipeId);
+        const postId = req.params.postId;
+        const upvotedByPostId = await upvotesDao.getUpvotesByPostId(postId);
         res.json(upvotedByPostId);
     };
 
@@ -26,8 +26,8 @@ function UpvotesController(app) {
     };
 
     app.post("/api/upvotes", createUpvote);
-    app.get("/api/upvotes/:postId", getUpvotesByPostId);
-    app.get("/api/upvotes/:userId", getUpvotesByUserId);
+    app.get("/api/upvotes/post/:postId", getUpvotesByPostId);
+    app.get("/api/upvotes/user/:userId", getUpvotesByUserId);
     app.delete("/api/upvotes", removeUpvote);
 }
 

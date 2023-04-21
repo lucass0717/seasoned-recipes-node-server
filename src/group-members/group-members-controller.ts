@@ -1,7 +1,8 @@
 import * as groupMembersDao from './group-members-dao';
 import * as groupDao from '../groups/groups-dao';
 import * as userDao from '../users/users-dao';
-import { groupMember } from './group-members-dao';
+import {groupMember} from './group-members-dao';
+import {findUserById} from "../users/users-dao";
 
 function GroupMembersController(app) {
   const createGroupMember = async (req, res) => {
@@ -27,12 +28,13 @@ function GroupMembersController(app) {
 
   const getGroupsByUserId = async (req, res) => {
     const userId = req.params.userId;
-    const user = await userDao.findUserById(userId);
+    const user = await findUserById(userId);
     if (!user) {
       res.status(404).send('User not found');
       return;
     }
     const groups = await groupMembersDao.getGroupsByUserId(userId);
+
     res.json(groups);
   };
 
@@ -54,7 +56,7 @@ function GroupMembersController(app) {
 
   app.post('/api/group-members', createGroupMember);
   app.get('/api/group-members/:groupId', getGroupMembersByGroupId);
-  app.get('/api/groups/:userId', getGroupsByUserId);
+  app.get('/api/group-members/user/:userId', getGroupsByUserId);
   app.delete('/api/group-members', leaveGroup);
 }
 

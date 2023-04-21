@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 const groupMembersSchema = new mongoose.Schema(
     {
-      groupId: {
+      group: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "groups",
         required: true,
       },
-      userId: {
+      user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
         required: true,
@@ -14,4 +14,4 @@ const groupMembersSchema = new mongoose.Schema(
     },
     { collection: "group-members" }
 );
-export default groupMembersSchema;
+export default groupMembersSchema

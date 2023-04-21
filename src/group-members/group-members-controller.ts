@@ -5,9 +5,13 @@ import { groupMember } from './group-members-dao';
 
 function GroupMembersController(app) {
   const createGroupMember = async (req, res) => {
-    const groupMember : groupMember = req.body;
-    const newGroupMember : groupMember = await groupMembersDao.createGroupMember(groupMember);
-    res.json(newGroupMember);
+    try {
+      const groupMember : groupMember = req.body;
+      const newGroupMember = await groupMembersDao.createGroupMember(groupMember);
+      res.json(newGroupMember);
+    } catch (e) {
+      res.status(400).send("Invalid Group Join");
+    }
   };
 
   const getGroupMembersByGroupId = async (req, res) => {
@@ -17,7 +21,7 @@ function GroupMembersController(app) {
       res.status(404).send('Group not found');
       return;
     }
-    const groupMembers: Array<groupMember> = await groupMembersDao.getGroupMembersByGroupId(groupId);
+    const groupMembers = await groupMembersDao.getGroupMembersByGroupId(groupId);
     res.json(groupMembers);
   };
 

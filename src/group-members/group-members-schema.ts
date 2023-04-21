@@ -1,9 +1,17 @@
 import mongoose from "mongoose";
 const groupMembersSchema = new mongoose.Schema(
-{
-  groupId: { type: String, required: true },
-  userId: { type: String, required: true }
-},
-{ collection: "groupMembers" }
+    {
+      groupId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "groups",
+        required: true,
+      },
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        required: true,
+      },
+    },
+    { collection: "group-members" }
 );
 export default groupMembersSchema;

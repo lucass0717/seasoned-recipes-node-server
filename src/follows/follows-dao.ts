@@ -9,6 +9,10 @@ export const createFollow = async (follow: follow) => {
   return await followsModel.create(follow);
 }
 
+export const getFollow = async (follow: follow) => {
+  return await followsModel.findOne(follow);
+}
+
 export const getFollowersById = async (userId: string) => {
   return await followsModel.find({following: userId});
 }

@@ -26,8 +26,8 @@ function FollowsController(app) {
   };
 
   app.post("/api/follows", createFollow);
-  app.get("/api/followers/:userId", getFollowersById);
-  app.get("/api/following/:userId", getFollowingById);
+  app.get("/api/follows/:userId/followers", getFollowersById);
+  app.get("/api/follows/:userId/following", getFollowingById);
   app.delete("/api/follows", unfollow);
 }
 

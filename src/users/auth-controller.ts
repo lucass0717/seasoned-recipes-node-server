@@ -1,4 +1,5 @@
 import * as usersDao from "./users-dao";
+import { getFollow } from "../follows/follows-dao";
 
 const AuthController = (app) => {
 
@@ -48,12 +49,39 @@ const AuthController = (app) => {
     res.sendStatus(200);
   };
 
+  // Get a users profile by their id
+  const findUserById = async (req, res) => {
+    // get the current user session
+    const currentUser = req.session["currentUser"];
+    const userId = req.params["userId"];
+    const user = await usersDao.findUserById(userId);
+    if(!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+
+    
+    if(currentUser) {
+      const follow = await getFollow({follower: currentUser._id, following: user._id.toString()});
+      if(follow) {
+        const response = {
+          user,
+          following: true
+        }
+        res.json(response);
+        return;
+      }
+    }
+    res.json({user, following: false});
+  };
+
 const update   = async (req, res) => { };
 
 
   app.post("/api/users/register", register);
   app.post("/api/users/login",    login);
   app.get("/api/users/profile",  profile);
+  app.get("/api/users/:userId",  findUserById);
   app.post("/api/users/logout",   logout);
   app.put ("/api/users",          update);
 };

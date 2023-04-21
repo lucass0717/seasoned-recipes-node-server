@@ -1,11 +1,12 @@
 import * as recipesDao from './recipes-dao';
+import {findRecipeById} from "./recipes-dao";
 
 const RecipesController = (app) => {
   
   // Get recipe by External Id
-  const getRecipeById =  async (req, res) => {
+  const getRecipeByAPIId =  async (req, res) => {
     const recipeId = req.params.recipeId;
-    const recipe = await recipesDao.findRecipeByExternalId(recipeId);
+    const recipe = await recipesDao.findRecipeByAPIId(recipeId);
     res.json(recipe);
   };
 
@@ -16,7 +17,7 @@ const RecipesController = (app) => {
     res.json(recipe);
   };
 
-  app.get('/api/recipes/:recipeId', getRecipeById);
+  app.get('/api/recipes/:recipeId', getRecipeByAPIId);
   app.post('/api/recipes', createRecipe);
 }
 

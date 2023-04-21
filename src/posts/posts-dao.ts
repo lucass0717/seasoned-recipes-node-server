@@ -48,3 +48,19 @@ export const createPost = async (post: postType) =>
 // Delete a post
 export const deletePost = async (postId: string) => 
   await postsModel.deleteOne({_id: postId});
+
+export const addLikeToPost = async (postId: string) => {
+  const post = await postsModel.findById(postId);
+  if (post) {
+    post.likes++;
+    await post.save();
+  }
+}
+
+export const removeLikeFromPost = async (postId: string) => {
+  const post = await postsModel.findById(postId);
+  if (post) {
+    post.likes = Math.max(post.likes - 1, 0);
+    await post.save();
+  }
+}

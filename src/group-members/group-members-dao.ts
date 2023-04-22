@@ -1,5 +1,6 @@
 import groupMembersModel from "./group-members-model";
 import groupsModel from "../groups/groups-model";
+import usersModel from "../users/users-model";
 export type groupMember = {
   groupId: string;
   userId: string;
@@ -10,7 +11,10 @@ export const createGroupMember = async (groupMember: groupMember) => {
 }
 
 export const getGroupMembersByGroupId = async (groupId: string) => {
-  return await groupMembersModel.find({group: groupId});
+  const groupMembers = await groupMembersModel.find({group: groupId});
+  const userIds = groupMembers.map((member: any) => member.user);
+  const userInfos = await usersModel.find({_id: {$in: userIds}});
+  return userInfos;
 }
 
 export const getGroupsByUserId = async (userId: string) => {

@@ -2,12 +2,19 @@ import * as postsDao from "./posts-dao";
 import * as recipeDao from "../recipes/recipes-dao";
 import * as groupDao from "../groups/groups-dao";
 import {findRecipeByAPIId} from "../recipes/recipes-dao";
+import {getPostsInGroup} from "./posts-dao";
 
 const PostsController = (app) => {
 
   // Get all posts with the recipe, group, and user populated
   async function getAllPosts(req, res) {
     const posts = await postsDao.getPosts();
+    res.json(posts);
+  }
+
+  async function getGroupsPosts(req, res) {
+    const currentGroup = req.params.groupId;
+    const posts = await postsDao.getPostsInGroup(currentGroup);
     res.json(posts);
   }
 
@@ -63,6 +70,7 @@ const PostsController = (app) => {
   }
 
   app.get("/api/posts", getAllPosts);
+  app.get("/api/group-posts/:groupId", getGroupsPosts)
   app.get("/api/followed-posts/:userId", getFollowedPosts);
   app.post("/api/posts", createPost);
   app.delete("/api/posts/:postId", deletePost);

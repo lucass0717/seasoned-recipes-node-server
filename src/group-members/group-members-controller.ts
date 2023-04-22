@@ -1,13 +1,19 @@
 import * as groupMembersDao from './group-members-dao';
 import * as groupDao from '../groups/groups-dao';
 import * as userDao from '../users/users-dao';
-import { groupMember } from './group-members-dao';
+
+import {groupMember} from './group-members-dao';
+import {findUserById} from "../users/users-dao";
 
 function GroupMembersController(app) {
   const createGroupMember = async (req, res) => {
-    const groupMember : groupMember = req.body;
-    const newGroupMember : groupMember = await groupMembersDao.createGroupMember(groupMember);
-    res.json(newGroupMember);
+    try {
+      const groupMember : groupMember = req.body;
+      const newGroupMember = await groupMembersDao.createGroupMember(groupMember);
+      res.json(newGroupMember);
+    } catch (e) {
+      res.status(400).send("Invalid Group Join");
+    }
   };
 
   const getGroupMembersByGroupId = async (req, res) => {
@@ -17,13 +23,13 @@ function GroupMembersController(app) {
       res.status(404).send('Group not found');
       return;
     }
-    const groupMembers: Array<groupMember> = await groupMembersDao.getGroupMembersByGroupId(groupId);
+    const groupMembers = await groupMembersDao.getGroupMembersByGroupId(groupId);
     res.json(groupMembers);
   };
 
   const getGroupsByUserId = async (req, res) => {
     const userId = req.params.userId;
-    const user = await userDao.findUserById(userId);
+    const user = await findUserById(userId);
     if (!user) {
       res.status(404).send('User not found');
       return;
@@ -50,7 +56,7 @@ function GroupMembersController(app) {
 
   app.post('/api/group-members', createGroupMember);
   app.get('/api/group-members/:groupId', getGroupMembersByGroupId);
-  app.get('/api/groups/:userId', getGroupsByUserId);
+  app.get('/api/group-members/user/:userId', getGroupsByUserId);
   app.delete('/api/group-members', leaveGroup);
 }
 

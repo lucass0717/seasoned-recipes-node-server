@@ -15,12 +15,13 @@ function FollowsController(app) {
 
   const getFollowersById = async (req, res) => {
     const userId = req.params.userId;
-    const user = await findUserById(userId);
+    const user = await findUserById(userId)
     if (!user) {
       res.status(404).send("User not found");
       return;
     }
-    const followers = await followsDao.getFollowersById(userId);
+    const followers = await followsDao
+        .getFollowersById(userId);
     res.json(followers);
   };
 
@@ -47,8 +48,8 @@ function FollowsController(app) {
   };
 
   app.post("/api/follows", createFollow);
-  app.get("/api/followers/:userId", getFollowersById);
-  app.get("/api/following/:userId", getFollowingById);
+  app.get("/api/follows/:userId/followers", getFollowersById);
+  app.get("/api/follows/:userId/following", getFollowingById);
   app.delete("/api/follows", unfollow);
 }
 

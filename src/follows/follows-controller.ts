@@ -15,12 +15,13 @@ function FollowsController(app) {
 
   const getFollowersById = async (req, res) => {
     const userId = req.params.userId;
-    const user = await findUserById(userId);
+    const user = await findUserById(userId)
     if (!user) {
       res.status(404).send("User not found");
       return;
     }
-    const followers = await followsDao.getFollowersById(userId);
+    const followers = await followsDao
+        .getFollowersById(userId);
     res.json(followers);
   };
 

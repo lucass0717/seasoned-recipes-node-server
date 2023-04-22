@@ -14,11 +14,17 @@ export const getFollow = async (follow: follow) => {
 }
 
 export const getFollowersById = async (userId: string) => {
-  return await followsModel.find({following: userId});
+  const followers = await followsModel
+      .find({following: userId})
+      .populate("follower");
+  return followers.map(follow => follow.follower);
 }
 
 export const getFollowingById = async (userId: string) => {
-  return await followsModel.find({follower: userId});
+  const following =  await followsModel
+      .find({follower: userId})
+      .populate("following");
+  return following.map(follow => follow.following);
 }
 
 export const unfollow = async (follow: follow) => {

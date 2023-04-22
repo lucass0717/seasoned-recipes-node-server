@@ -30,8 +30,10 @@ app.use(
 app.use(
   session({
     secret: "secret string",
-    resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      secure: false
+    }
   })
 );
 

@@ -20,9 +20,10 @@ console.log(CONNECTION_STRING);
 const app = express();
 
 app.use(
+  // allow access from all origins
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: true,
   })
 );
 

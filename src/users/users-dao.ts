@@ -4,7 +4,7 @@ import usersModel from "./users-model";
 export const findAllUsers = () => usersModel.find();
 
 
-export const findUserById = (uid) => usersModel.findById(uid);
+export const findUserById = (uid) => usersModel.findOne({ _id: uid});
 
 
 export const findUserByUsername = (username) =>

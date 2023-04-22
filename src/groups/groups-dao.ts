@@ -11,7 +11,7 @@ export const getGroups = async () =>
 
 
 export const getGroupById = async (groupId: string) => 
-  await groupsModel.findById({groupId});
+  await groupsModel.find({_id: groupId});
 
 export const getGroupByName =async (groupName: string) => 
   await groupsModel.findOne({name: groupName});  

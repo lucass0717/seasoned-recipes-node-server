@@ -1,6 +1,7 @@
 import * as groupMembersDao from './group-members-dao';
 import * as groupDao from '../groups/groups-dao';
 import * as userDao from '../users/users-dao';
+
 import {groupMember} from './group-members-dao';
 import {findUserById} from "../users/users-dao";
 
@@ -34,7 +35,6 @@ function GroupMembersController(app) {
       return;
     }
     const groups = await groupMembersDao.getGroupsByUserId(userId);
-
     res.json(groups);
   };
 

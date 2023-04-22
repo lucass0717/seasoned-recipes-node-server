@@ -1,6 +1,6 @@
 import followsModel from "./follows-model";
 
-type follow = {
+export type follow = {
   follower: string;
   following: string;
 }

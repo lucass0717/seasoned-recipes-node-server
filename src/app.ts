@@ -10,6 +10,7 @@ import GroupsController from "./groups/groups-controller";
 import FollowsController from "./follows/follows-controller";
 import UpvotesController from "./upvotes/upvotes-controller";
 import BookmarksController from "./bookmarks/bookmarks-controller";
+import GroupMembersController from "./group-members/group-members-controller";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
  || 'mongodb://127.0.0.1:27017/seasoned-recipes-db'
@@ -40,6 +41,7 @@ AuthController(app);
 PostsController(app);
 RecipesController(app);
 GroupsController(app);
+GroupMembersController(app);
 FollowsController(app);
 UpvotesController(app);
 BookmarksController(app);

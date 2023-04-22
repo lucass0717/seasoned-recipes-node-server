@@ -17,20 +17,35 @@ export const getPosts = async () => {
   .sort({date: -1});
 }
 
+// Get posts from the users that the current user is following
 export const getFollowedPosts = async (userId: string) => {
-  console.log("userId", userId);
   const following = await followsDao.getFollowingById(userId);
   const followingIds = following.map((follow: any) => follow.following);
-  console.log("followingIds", followingIds);
-  const followedPosts = await postsModel.find({userId: {$in: followingIds}});
-  console.log("followedPosts", followedPosts);
+  const followedPosts = await postsModel
+  .find({userId: {$in: followingIds}})
+  .populate("recipeId")
+  .populate("userId")
+  .populate("groupId")
+  .sort({date: -1});
   return followedPosts;  
 }
 
+// Get posts in a group
+export const getPostsInGroup = async (groupId: string) => {
+  const groupPosts = await postsModel
+  .find({groupId: groupId})
+  .populate("recipeId")
+  .populate("userId")
+  .populate("groupId")
+  .sort({date: -1});
+  return groupPosts;
+}
+
+// Get posts by a user and assign to a recipe and group
 export const createPost = async (post: postType) => 
   await postsModel.create(post);
 
-
+// Delete a post
 export const deletePost = async (postId: string) => 
   await postsModel.deleteOne({_id: postId});
 

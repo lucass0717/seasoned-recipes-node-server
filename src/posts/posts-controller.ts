@@ -20,7 +20,7 @@ const PostsController = (app) => {
 
   // Get all posts from people you follow
   async function getFollowedPosts(req, res) {
-    const currentUser = req.params.userId;
+    const currentUser = req.session.currentUser;
     // if no user is logged in, return 401
     console.log("currentUser", currentUser);
     if (!currentUser) {
@@ -71,7 +71,7 @@ const PostsController = (app) => {
 
   app.get("/api/posts", getAllPosts);
   app.get("/api/group-posts/:groupId", getGroupsPosts)
-  app.get("/api/followed-posts/:userId", getFollowedPosts);
+  app.get("/api/followed-posts", getFollowedPosts);
   app.post("/api/posts", createPost);
   app.delete("/api/posts/:postId", deletePost);
 };

@@ -20,7 +20,7 @@ export const getPosts = async () => {
 // Get posts from the users that the current user is following
 export const getFollowedPosts = async (userId: string) => {
   const following = await followsDao.getFollowingById(userId);
-  const followingIds = following.map((follow: any) => follow.following);
+  const followingIds = following.map((follow: any) => follow._id);
   const followedPosts = await postsModel
   .find({userId: {$in: followingIds}})
   .populate("recipeId")

@@ -23,8 +23,7 @@ const AuthController = (app) => {
   const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = await usersDao
-      .findUserByCredentials(username, password);
+    const user = await usersDao.findUserByCredentials(username, password);
     if (user) {
       req.session["currentUser"] = user;
       res.json(user);
@@ -76,7 +75,12 @@ const AuthController = (app) => {
     res.json({user, following: false});
   };
 
-const update   = async (req, res) => { };
+const update = async (req, res) => {
+  const newUser = req.body;
+  const update = await usersDao.updateUser(newUser._id, newUser);
+  res.json(update);
+  return update;
+};
 
 
   app.post("/api/users/register", register);

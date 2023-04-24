@@ -16,9 +16,7 @@ function BookmarksController(app) {
     };
 
     const getBookmarksByUserId = async (req, res) => {
-        console.log("GET BOOKMARKS BY USER ID");
         const userId = req.params.userId;
-        // console.log("USER ID IS", userId);
         const bookmarkByUserId = await bookmarksDao.getBookmarksByUserId(userId);
         res.json(bookmarkByUserId);
     };

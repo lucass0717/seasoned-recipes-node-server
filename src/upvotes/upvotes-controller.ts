@@ -23,6 +23,13 @@ function UpvotesController(app) {
         res.json(upvotedByUserId);
     };
 
+    const getUpvotesByBothIds = async (req, res) => {
+        const postId = req.params.postId;
+        const userId = req.params.userId;
+        const upvotedByBothIds = await upvotesDao.getUpvotesByBothIds(postId, userId);
+        res.json(upvotedByBothIds);
+    };
+
     const removeUpvote = async (req, res) => {
         const upvote: upvotes = req.body;
         const deletedUpvote = await upvotesDao.removeUpvote(upvote);
@@ -31,6 +38,7 @@ function UpvotesController(app) {
     };
 
     app.post("/api/upvotes", createUpvote);
+    app.get("/api/upvotes/objects/:postId/:userId", getUpvotesByBothIds);
     app.get("/api/upvotes/post/:postId", getUpvotesByPostId);
     app.get("/api/upvotes/user/:userId", getUpvotesByUserId);
     app.delete("/api/upvotes", removeUpvote);

@@ -17,6 +17,15 @@ export const getPosts = async () => {
   .sort({date: -1});
 }
 
+// get post by id
+export const getPostById = async (postId: string) => {
+  return await postsModel
+  .findById(postId)
+  .populate("recipeId")
+  .populate("userId")
+  .populate("groupId")
+}
+
 // Get posts from the users that the current user is following
 export const getFollowedPosts = async (userId: string) => {
   const following = await followsDao.getFollowingById(userId);

@@ -9,6 +9,10 @@ export const createUpvote = async (upvote: upvotes) => {
   return await upvotesModel.create(upvote);
 }
 
+export const getUpvotesByBothIds = async (postId: string, userId: string) => {
+  return await upvotesModel.find({post: postId, user: userId});
+}
+
 export const getUpvotesByPostId = async (postId: string) => {
   return await upvotesModel.find({post: postId});
 }

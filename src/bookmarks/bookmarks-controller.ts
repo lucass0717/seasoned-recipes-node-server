@@ -27,7 +27,7 @@ function BookmarksController(app) {
         res.json(bookmarkByUserId);
     };
 
-    const getBookmarkByBothIDs = async (req, res) => {
+    const getBookmarkByUserIdAndRecipeID = async (req, res) => {
         const recipeId = req.params.recipeId;
         const userId = req.params.userId;
         const bookmarkByUserId = await bookmarksDao.getBookmarkByUserIdAndRecipeID(userId, recipeId);
@@ -44,7 +44,7 @@ function BookmarksController(app) {
     app.get("/api/bookmarks/:recipeId", getBookmarksByRecipeId);
     app.get("/api/bookmarks/objects/user/:userId", getBookmarkObjectsByUserId);
     app.get("/api/bookmarks/user/:userId", getBookmarksByUserId);
-    app.get("/api/bookmarks/:recipeId/:userId", getBookmarkByBothIDs);
+    app.get("/api/bookmarks/:recipeId/:userId", getBookmarkByUserIdAndRecipeID);
     app.delete("/api/bookmarks", unbookmark);
 }
 

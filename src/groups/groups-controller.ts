@@ -13,15 +13,15 @@ const GroupsController = (app) => {
   };
 
   const updateGroup = async (req, res) => {
-    const groupId = req.params.groupId;
     const group = req.body;
-    await groupsDao.updateGroup(groupId, group);
-    res.json(group);
+    const update = await groupsDao.updateGroup(group._id, group);
+    res.json(update);
+    return update;
   };
 
   app.get("/api/groups", getGroups);
   app.get("/api/groups/:groupId", getGroupById);
-  app.put("/api/groups/:groupId", updateGroup);
+  app.put("/api/groups", updateGroup);
 };
 
 export default GroupsController;

@@ -67,11 +67,19 @@ const PostsController = (app) => {
     res.json(postId);
   }
 
+  // Get all posts associated with a recipe
+  async function getPostsByRecipeId(req, res) {
+    const recipeId = req.params.recipeId;
+    const posts = await postsDao.getPostsByRecipeId(recipeId);
+    res.json(posts);
+  }
+
   app.get("/api/posts", getAllPosts);
   app.get("/api/group-posts/:groupId", getGroupsPosts);
   app.get("/api/followed-posts", getFollowedPosts);
   app.post("/api/posts", createPost);
   app.delete("/api/posts/:postId", deletePost);
+  app.get("/api/recipe-posts/:recipeId", getPostsByRecipeId);
 };
 
 export default PostsController;

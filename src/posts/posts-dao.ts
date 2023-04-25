@@ -26,6 +26,19 @@ export const getPostById = async (postId: string) => {
   .populate("groupId")
 }
 
+// Get posts by recipeId
+export const getPostsByRecipeId = async (recipeId: string) => {
+  const posts = await postsModel
+    .find({ recipeId: recipeId })
+    .populate("recipeId")
+    .populate("userId")
+    .populate("groupId")
+    .sort({ date: -1 });
+
+  const texts = posts.map((post: any) => post.text);
+  return texts;
+};
+
 // Get posts from the users that the current user is following
 export const getFollowedPosts = async (userId: string) => {
   const following = await followsDao.getFollowingById(userId);

@@ -25,5 +25,5 @@ export const getGroupsByUserId = async (userId: string) => {
 }
 
 export const leaveGroup = async (groupMember: groupMember) => {
-  return await groupMembersModel.deleteOne(groupMember);
+  return await groupMembersModel.deleteOne({group: groupMember.groupId, user: groupMember.userId});
 }

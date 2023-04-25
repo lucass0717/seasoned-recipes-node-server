@@ -62,7 +62,7 @@ const AuthController = (app) => {
 
     
     if(currentUser) {
-      const follow = await getFollow({follower: currentUser._id, following: user._id.toString()});
+      const follow = await getFollow({follower: currentUser._id, following: userId});
       if(follow) {
         const response = {
           user,

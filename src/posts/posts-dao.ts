@@ -1,5 +1,6 @@
 import postsModel from "./posts-model";
 import * as followsDao from "../follows/follows-dao";
+import * as upvotesDao from "../upvotes/upvotes-dao";
 
 type postType = {
   text: string;
@@ -37,6 +38,17 @@ export const getPostsByRecipeId = async (recipeId: string) => {
   return posts;
 };
 
+// Get posts by userId
+export const getPostsByUserId = async (userId: string) => {
+  const posts = await postsModel
+    .find({ userId: userId })
+    .populate("recipeId")
+    .populate("userId")
+    .populate("groupId")
+    .sort({ date: -1 });
+  return posts;
+};
+
 // Get posts from the users that the current user is following
 export const getFollowedPosts = async (userId: string) => {
   const following = await followsDao.getFollowingById(userId);
@@ -49,6 +61,19 @@ export const getFollowedPosts = async (userId: string) => {
   .sort({date: -1});
   return followedPosts;  
 }
+
+// Get posts that the user has liked
+export const getLikedPosts = async (userId: string) => {
+  const upvotes = await upvotesDao.getUpvotesByUserId(userId);
+  const upvotePostIds = upvotes.map((upvote: any) => upvote.post);
+  const likedPosts = await postsModel
+    .find({ _id: { $in: upvotePostIds } })
+    .populate("recipeId")
+    .populate("userId")
+    .populate("groupId")
+    .sort({ date: -1 });
+  return likedPosts;
+};
 
 // Get posts in a group
 export const getPostsInGroup = async (groupId: string) => {

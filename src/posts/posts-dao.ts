@@ -34,9 +34,7 @@ export const getPostsByRecipeId = async (recipeId: string) => {
     .populate("userId")
     .populate("groupId")
     .sort({ date: -1 });
-
-  const texts = posts.map((post: any) => post.text);
-  return texts;
+  return posts;
 };
 
 // Get posts from the users that the current user is following
